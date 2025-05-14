@@ -17,7 +17,6 @@ advertising = np.array([23, 26, 30, 34, 43, 48, 52, 57, 58])
 
 class LinearRegression:
     def __init__(self):
-        self.slope = None
         self.b0 = None
         self.b1 = None
 
@@ -40,17 +39,25 @@ class LinearRegression:
         self.b1 = (n_xy_sum - x_sum_y_sum) / (n_x2_sum - x_sum_2)
 
         print("La ecuacion de regresion es la siguiente: ")
-        print(f"y = {self.b0} + {self.b1}x")
+        print(f"y = {self.b0} + {self.b1}x\n")
 
     def predecir(self, valores):
         predicciones = []
         for valor in valores:
+            print(f"y = {self.b0} + {self.b1}({valor})")
             predicciones.append(self.b0 + self.b1 * valor)
         return predicciones
 
+def randomValuesListNotOnList(list):
+  values = np.random.randint(0, 100, size=5)
+  for value in values:
+    if value in list:
+      values = randomValuesListNotOnList(list)
+  return values
+
 modelo = LinearRegression()
 modelo.calcular(advertising, sales)
-valores = np.random.randint(0, 100, size=5)
+valores = randomValuesListNotOnList(advertising)
 predicciones = modelo.predecir(valores)
 
 # Resultados
